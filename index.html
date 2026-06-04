@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>XOR Encryptor</title>
+</head>
+<body>
+
+<textarea id="input" rows="5" cols="50"></textarea>
+
+<br><br>
+
+<button onclick="encryptText()">Encrypt</button>
+<button onclick="decryptText()">Decrypt</button>
+
+<br><br>
+
+<textarea id="output" rows="5" cols="50"></textarea>
+
+<script>
+
+const ENC_KEY = 23;
+
+function encryptText()
+{
+    let txt = document.getElementById("input").value;
+    let result = "";
+
+    for(let i = 0; i < txt.length; i++)
+    {
+        let c = txt.charCodeAt(i) ^ ENC_KEY;
+        result += c.toString(16).toUpperCase().padStart(2,'0');
+    }
+
+    document.getElementById("output").value = result;
+}
+
+function decryptText()
+{
+    let txt = document.getElementById("input").value.trim();
+    let result = "";
+
+    for(let i = 0; i < txt.length; i += 2)
+    {
+        let hex = txt.substr(i,2);
+        let c = parseInt(hex,16);
+        result += String.fromCharCode(c ^ ENC_KEY);
+    }
+
+    document.getElementById("output").value = result;
+}
+
+</script>
+
+</body>
+</html>
